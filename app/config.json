@@ -1,0 +1,11 @@
+{
+    "api_defaults": {
+      "format": "geojson",
+      "minlatitude": 37.0,
+      "maxlatitude": 38.5,
+      "minlongitude": -123.0,
+      "maxlongitude": -121.5,
+      "minmagnitude": 2.0
+    }
+  }
+  
