@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: earthquake-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: earthquake-service
+  template:
+    metadata:
+      labels:
+        app: earthquake-service
+    spec:
+      containers:
+      - name: app
+        image: neepunkumar/earthquake-service:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: USGS_API_BASE
+          value: "https://earthquake.usgs.gov/fdsnws/event/1/query"
+        - name: LOG_LEVEL
+          value: "DEBUG"
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: earthquake-service
+spec:
+  selector:
+    app: earthquake-service
+  ports:
+  - protocol: TCP
+    port: 80          # Service port
+    targetPort: 5000  # Container port
+  type: ClusterIP
