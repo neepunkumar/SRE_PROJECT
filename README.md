@@ -182,11 +182,3 @@ This project is a scalable and highly available service providing real-time eart
   ```
 
 ---
-
-## Contributing
-Feel free to submit issues or pull requests to improve this project.
-
----
-
-## License
-This project is licensed under the MIT License.
