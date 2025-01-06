@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+    image: neepunkumar/earthquake-service
+    ports:
+      - "5001:5000"
+    environment:
+      - USGS_API_BASE=https://earthquake.usgs.gov/fdsnws/event/1/query
+      - LOG_LEVEL=DEBUG
+    depends_on:
+      - redis
+      - prometheus
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
